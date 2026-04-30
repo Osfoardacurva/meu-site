@@ -1,0 +1,91 @@
+fake.html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: white;
+      text-align: center;
+      padding: 40px;
+
+      /* animação ao abrir */
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 10px 0;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 25px;
+      background: #00c6ff;
+      color: black;
+      text-decoration: none;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00a2d3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🧠 Fake News</h1>
+
+  <p>Fake news são informações falsas criadas para enganar pessoas.</p>
+
+  <h2 style="margin-top:20px;">Como combater:</h2>
+
+  <p>✔️ Verifique a fonte</p>
+  <p>✔️ Desconfie de títulos exagerados</p>
+  <p>✔️ Confira em outros sites</p>
+  <p>✔️ Não compartilhe sem certeza</p>
+
+  <a href="index.html" class="btn">⬅️ Voltar</a>
+</div>
+
+</body>
+</html>
