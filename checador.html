@@ -1,5 +1,19 @@
-<div class="destaque" style="text-align: center;">
-  <h3>🔍 Recebeu uma notícia suspeita?</h3>
-  <p>Cole o texto ou mande o print. A gente busca se já foi checada.</p>
-  <a href="./checador.html" class="btn" style="background: #22c55e;">Checar Agora</a>
-</div>
+<h1>Cheque sua notícia</h1>
+<p>Cole o texto ou envie um print para analisar:</p>
+
+<form id="form-checador">
+  <!-- Caixa pra texto -->
+  <label for="texto-noticia">Texto da notícia:</label><br>
+  <textarea id="texto-noticia" rows="8" cols="50" placeholder="Cole a notícia aqui..."></textarea>
+  <br><br>
+
+  <!-- Botão pra imagem -->
+  <label for="imagem-noticia">Ou envie uma imagem/print:</label><br>
+  <input type="file" id="imagem-noticia" accept="image/*">
+  <br><br>
+
+  <!-- Botão de analisar -->
+  <button type="submit">Analisar</button>
+</form>
+
+<div id="resultado"></div>
