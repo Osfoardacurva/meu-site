@@ -1,140 +1,47 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checador de Notícias</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f9;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    header {
-      background: #5cb85c;
-      color: white;
-      padding: 30px 20px;
-      text-align: center;
-      border-radius: 0 0 10px 10px;
-    }
-    h1 { margin: 0; }
-    h2 {
-      color: #5cb85c;
-      margin-top: 30px;
-    }
-    .card {
-      background: white;
-      padding: 25px;
-      margin: 20px 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-      color: #555;
-    }
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ddd;
-      border-radius: 6px;
-      font-size: 16px;
-      box-sizing: border-box;
-      resize: vertical;
-    }
-    textarea:focus {
-      border-color: #5cb85c;
-      outline: none;
-    }
-    input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      border: 2px dashed #ddd;
-      border-radius: 6px;
-      background: #fafafa;
-      cursor: pointer;
-    }
-    .divisor {
-      text-align: center;
-      margin: 20px 0;
-      color: #888;
-      font-weight: bold;
-    }
-    .botao-analisar {
-      width: 100%;
-      background: #5cb85c;
-      color: white;
-      border: none;
-      padding: 18px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 15px;
-    }
-    .botao-analisar:hover { background: #4cae4c; }
-    #resultado {
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 6px;
-      display: none;
-    }
-    nav { text-align: center; margin: 20px 0; }
-    nav a { margin: 0 15px; color: #5cb85c; text-decoration: none; font-weight: bold; }
-    .dica {
-      background: #d9edf7;
-      border-left: 4px solid #31708f;
-      padding: 15px;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-  </style>
+    <title>Checador</title>
 </head>
 <body>
-  <header>
-    <h1>Checador de Notícias</h1>
-    <p>Descubra se uma informação é verdadeira ou falsa</p>
-  </header>
+    <h1>Meu Checador</h1>
+    <input type="text" id="campo" placeholder="Digite algo aqui">
+    <button onclick="checarComAPI()">Checar</button>
+    <div id="resultado"></div>
 
-  <div class="container">
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="fake.html">Exemplos</a>
-      <a href="checador.html">Checador</a>
-    </nav>
+    <script>
+        const API_KEY = "AIzaSyBCp5Ce4jQPO_9Mx12IYTBQTac9vqDKe48"; // Cola sua chave do Google aqui
 
-    <div class="card">
-      <h2>Analise sua notícia</h2>
-      
-      <form id="form-checador">
-        <label for="texto-noticia">1. Cole o texto da notícia:</label>
-        <textarea id="texto-noticia" rows="8" placeholder="Ex: 'Médicos descobrem que limão cura câncer...'"></textarea>
-        
-        <div class="divisor">OU</div>
-        
-        <label for="imagem-noticia">2. Envie um print/imagem:</label>
-        <input type="file" id="imagem-noticia" accept="image/*">
-        
-        <button type="submit" class="botao-analisar">Analisar Agora</button>
-      </form>
+        async function checarComAPI() {
+            const valor = document.getElementById('campo').value;
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerText = "Checando...";
 
-      <div id="resultado"></div>
-    </div>
+            // Exemplo usando Gemini pra analisar o texto
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`;
+            
+            const prompt = `Analise isso: ${valor}`; // Muda esse prompt pro que você quer checar
+            
+            const data = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
 
-    <div class="dica">
-      <strong>Dica:</strong> Por enquanto este checador é apenas visual. Para checagem real, consulte sempre agências como Lupa e Aos Fatos.
-    </div>
-
-  </div>
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                const texto = result.candidates[0].content.parts[0].text;
+                resultadoDiv.innerText = texto;
+                
+            } catch (error) {
+                resultadoDiv.innerText = "Erro na API. Confere se a chave tá certa e se o site tá em osfora-dacurva.github.io/meu-site/*";
+                console.log(error);
+            }
+        }
+    </script>
 </body>
 </html>
